@@ -12,5 +12,11 @@ function handleOrientation(event) {
 
 function playWhipSound() {
     var whipSound = document.getElementById('whipSound');
+    var whipImage = document.getElementById('whipImage');
+
     whipSound.play();
+    whipImage.style.display = 'block'; // Show the image
+    setTimeout(function() {
+        whipImage.style.display = 'none'; // Hide the image after a delay
+    }, 2000); // Adjust the delay (in milliseconds) as needed
 }
