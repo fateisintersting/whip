@@ -5,15 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Whip Sound</title>
     <style>
+        body{
+            background-image: linear-gradient(to right, rgba(40, 183, 150, 0.537) , rgb(38, 107, 164));
+          display: flex;
+        }
+        main {
+            /* Added no-repeat */
+            margin:  0 auto;
+           padding: 15%;
+            
+        }
+       
+        .nav-bar {
+            margin-top: 0%;
+            background-color: cornflowerblue;
+        }
         #whipImage {
-            display: none;
+            padding: 2px;
+            border: 2px solid black;
+            border-radius: 50%;
+            height: 30vh;
+            width: 30vh;
         }
     </style>
 </head>
 <body>
-    <h1>Move your device to hear the whip sound!</h1>
-    <audio id="whipSound" src="whip.mp3"></audio>
-    <img id="whipImage" src="whip.jpg" alt="Whip Image">
-    <script src="whip.js"></script>
+    <main>
+        <img onclick="playSound()" id="whipImage" src="whip.jpg" alt="Whip Image">
+        </main>
+    <script>
+        var sound = new Audio('whip1.mp3'); // Corrected audio file declaration
+    
+        function playSound() {
+            sound.play();
+        }
+        
+    </script>
 </body>
 </html>
