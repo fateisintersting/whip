@@ -5,34 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Whip Sound</title>
     <style>
-        body{
-            background-image: linear-gradient(to right, rgba(40, 183, 150, 0.537) , rgb(38, 107, 164));
-          display: flex;
+        body {
+            background-image: linear-gradient(to right, rgba(40, 183, 150, 0.537), rgb(38, 107, 164));
+            display: flex;
         }
+        
         main {
-            /* Added no-repeat */
-            margin:  0 auto;
-           padding: 15%;
-            
+            margin: 0 auto;
+            padding: 15%;
+            text-align: center; /* Center-aligning content */
         }
        
         .nav-bar {
             margin-top: 0%;
             background-color: cornflowerblue;
         }
+        
         #whipImage {
             padding: 2px;
             border: 2px solid black;
             border-radius: 50%;
             height: 30vh;
             width: 30vh;
+            margin-bottom: 20px; /* Added margin below the image */
+        }
+        
+        button {
+            background-color: cornflowerblue; /* Button background color */
+            color: white; /* Button text color */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s; /* Smooth transition for color change */
+        }
+        
+        button:hover {
+            background-color: navy; /* Color change on hover */
         }
     </style>
 </head>
 <body>
     <main>
-        <img onclick="playSound()" id="whipImage" src="whip.jpg" alt="Whip Image">
-        </main>
+        <img id="whipImage" onclick="playSound()" src="whip.jpg" alt="Whip Image">
+        <br> <!-- Adding line break for spacing -->
+        <button id="shakeModeBtn" onclick="toggleShakeMode()">Click to toggle Shake mode</button> <!-- Adding onclick event -->
+    </main>
+        
     <script>
         var sound = new Audio('whip1.mp3'); // Corrected audio file declaration
     
@@ -40,6 +59,30 @@
             sound.play();
         }
         
+        // Function to toggle shake mode
+        function toggleShakeMode() {
+            var shakeModeBtn = document.getElementById("shakeModeBtn");
+            if (shakeModeBtn.dataset.shakeMode === "on") {
+                shakeModeBtn.dataset.shakeMode = "off";
+                shakeModeBtn.textContent = "Click to turn on Shake mode";
+                window.removeEventListener('devicemotion', shakeEventHandler);
+            } else {
+                shakeModeBtn.dataset.shakeMode = "on";
+                shakeModeBtn.textContent = "Click to turn off Shake mode";
+                window.addEventListener('devicemotion', shakeEventHandler);
+            }
+        }
+        
+        // Function to handle device shake event
+        function shakeEventHandler(event) {
+            // Calculate total acceleration
+            var acceleration = Math.sqrt(event.acceleration.x ** 2 + event.acceleration.y ** 2 + event.acceleration.z ** 2);
+            // Threshold for shake detection (adjust as needed)
+            var shakeThreshold = 15;
+            if (acceleration > shakeThreshold) {
+                playSound();
+            }
+        }
     </script>
 </body>
 </html>
